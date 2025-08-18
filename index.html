@@ -507,7 +507,7 @@
             };
 
             const generateTextWithGemini = async (prompt) => {
-                const apiKey = ""; 
+                const apiKey = "AIzaSyCw_VCEPS0c0Vysm64SsFkaSMkFgJvyXpI"; 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                 const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
                 let attempts = 0;
@@ -537,6 +537,7 @@
 </body>
 
 </html>
+
 
 
 
