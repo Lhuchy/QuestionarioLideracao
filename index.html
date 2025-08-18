@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu DNA da Liderança - Questionário Inicial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Custom theme colors based on the logo
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-purple': '#4A00E0',
+                        'brand-gold': '#C5B358',
+                        'brand-purple-light': '#F3E8FF',
+                        'brand-purple-dark': '#3C00B3',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .screen {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            will-change: opacity, transform;
+        }
+        .hidden-screen {
+            opacity: 0;
+            transform: translateX(30px);
+            position: absolute;
+            width: 100%;
+            pointer-events: none;
+        }
+        .visible-screen {
+            opacity: 1;
+            transform: translateX(0);
+            position: static;
+        }
+        .radio-label:has(input:checked) {
+            background-color: #4A00E0; /* brand-purple */
+            color: white;
+            border-color: #4A00E0; /* brand-purple */
+        }
+        .progress-bar-fill { transition: width 0.5s ease-in-out; }
+        .fade-in { animation: fadeInAnimation 1s ease-in forwards; }
+        @keyframes fadeInAnimation {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+            40%, 60% { transform: translate3d(3px, 0, 0); }
+        }
+        .shake { animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+    <main id="app-container" class="w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden relative">
+
+        <!-- Welcome Screen -->
+        <section id="welcome-screen" class="p-8 md:p-12 screen visible-screen">
+            <img src="https://i.imgur.com/832ML2K.png" alt="Logo GL Leadership Academy" class="w-32 h-32 mx-auto mb-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-brand-purple mb-4 text-center">Seu DNA da Liderança</h1>
+            <p class="text-gray-600 mb-6 text-center">Este não é um simples questionário, mas o primeiro passo para você construir a liderança que deseja e desbloquear recompensas exclusivas.</p>
+            <div class="bg-brand-purple-light border-l-4 border-brand-purple p-4 rounded-lg text-left mb-8">
+                <h3 class="font-semibold text-brand-purple-dark">Como funciona:</h3>
+                <p class="text-gray-700 mt-2">Reserve 2 minutos para responder com atenção. Cada resposta vai nos ajudar a criar um diagnóstico personalizado para que possamos entender seu momento como líder e indicar o próximo passo mais certeiro.</p>
+                <p class="text-gray-700 mt-2 font-semibold">Nosso objetivo é te mostrar o caminho para entregar 5X mais resultados com menos esforço, usando IA + gestão por projetos + liderança humanizada.</p>
+                <p class="text-gray-700 mt-4 pt-4 border-t border-brand-purple/30">
+                    <strong class="text-brand-purple-dark">Ao final, receba uma dica prévia do seu DNA da liderança e desbloqueie uma ferramenta especial!</strong>
+                </p>
+            </div>
+            <button id="go-to-info-btn" class="w-full mt-4 bg-brand-purple text-white font-bold py-3 px-6 rounded-lg hover:bg-brand-purple-dark transition-transform transform hover:scale-105">
+                Começar
+            </button>
+        </section>
+
+        <!-- Bloco 1 - Info Collection Screen -->
+        <section id="info-screen" class="p-8 md:p-12 screen hidden-screen">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Bloco 1: Vamos começar!</h2>
+            <p class="text-gray-600 text-sm mb-4 text-center">Use o Google para um preenchimento rápido ou insira seus dados manualmente.</p>
+
+            <button id="google-login-btn" class="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-50 transition">
+                <svg class="w-5 h-5 mr-3" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.222 0-9.618-3.317-11.28-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.012 36.49 44 30.861 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>
+                Entrar com Google
+            </button>
+
+            <div class="relative flex py-4 items-center">
+                <div class="flex-grow border-t border-gray-300"></div>
+                <span class="flex-shrink mx-4 text-gray-400 text-sm">OU</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+
+             <form id="info-form" class="space-y-4 text-left">
+                <div>
+                    <label for="nome" class="font-semibold">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" required class="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-purple">
+                </div>
+                <div>
+                    <label for="email" class="font-semibold">Seu melhor E-mail</label>
+                    <input type="email" id="email" name="email" required class="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-purple">
+                </div>
+                <div>
+                    <label for="whatsapp" class="font-semibold">Telefone/WhatsApp</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(11) 99999-8888" maxlength="15" class="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-purple">
+                    <p class="text-xs text-gray-500 mt-1">Usaremos para entrar em contato sobre seu diagnóstico completo.</p>
+                </div>
+                <div>
+                    <label for="instagram" class="font-semibold">Instagram (para que possamos te acompanhar)</label>
+                    <input type="text" id="instagram" name="instagram" placeholder="@seuusuario" class="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-purple">
+                </div>
+                <p id="info-error-message" class="text-red-500 text-sm hidden">Por favor, preencha os campos obrigatórios.</p>
+            </form>
+            <div class="mt-8 flex justify-between items-center">
+                <button data-target="welcome" class="back-btn text-gray-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition">Voltar</button>
+                <button id="start-questionnaire-btn" class="bg-brand-purple text-white font-bold py-3 px-8 rounded-lg hover:bg-brand-purple-dark transition-transform transform hover:scale-105">
+                    Próximo Bloco
+                </button>
+            </div>
+        </section>
+
+        <!-- Bloco 2 Screen -->
+        <section id="bloco2-screen" class="p-8 md:p-12 screen hidden-screen">
+            <div class="mb-8">
+                <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-brand-purple h-2.5 rounded-full" style="width: 33%"></div></div>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Bloco 2: Sua Situação Profissional</h2>
+            <p class="text-gray-600 mb-6">Nos ajude a entender onde e como você atua hoje.</p>
+            <div class="space-y-6">
+                <div>
+                    <label class="font-semibold">1. Qual é a sua situação profissional hoje?</label>
+                    <div class="space-y-2 mt-2">
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="situacao_profissional" value="Empregada com carteira assinada" required class="sr-only">Empregada com carteira assinada</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="situacao_profissional" value="Servidora pública" class="sr-only">Servidora pública</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="situacao_profissional" value="Empresária / Empreendedora" class="sr-only">Empresária / Empreendedora</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="situacao_profissional" value="Autônoma / Consultora" class="sr-only">Autônoma / Consultora</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="situacao_profissional" value="Desempregada" class="sr-only">Desempregada</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="situacao_profissional" value="Outro" class="sr-only">Outro</label>
+                    </div>
+                </div>
+                <div>
+                    <label for="area_atuacao" class="font-semibold">2. Com o que você trabalha hoje (setor/área de atuação)?</label>
+                    <input type="text" id="area_atuacao" name="area_atuacao" required class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-purple">
+                </div>
+                <div>
+                    <label class="font-semibold">3. Qual é sua renda familiar mensal?</label>
+                    <div class="space-y-2 mt-2">
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="renda" value="Até R$ 2.000" required class="sr-only">Até R$ 2.000</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="renda" value="De R$ 2.001 a R$ 5.000" class="sr-only">De R$ 2.001 a R$ 5.000</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="renda" value="De R$ 5.001 a R$ 10.000" class="sr-only">De R$ 5.001 a R$ 10.000</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="renda" value="De R$ 10.001 a R$ 15.000" class="sr-only">De R$ 10.001 a R$ 15.000</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="renda" value="Acima de R$ 15.000" class="sr-only">Acima de R$ 15.000</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-between items-center">
+                <button data-target="info" class="back-btn text-gray-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition">Voltar</button>
+                <button data-target="bloco3" class="next-btn bg-brand-purple text-white font-bold py-3 px-8 rounded-lg hover:bg-brand-purple-dark transition-transform transform hover:scale-105">Próximo</button>
+            </div>
+            <p class="question-error-message text-red-500 text-sm mt-2 text-right hidden">Por favor, responda a todas as perguntas.</p>
+        </section>
+
+        <!-- Bloco 3 Screen -->
+        <section id="bloco3-screen" class="p-8 md:p-12 screen hidden-screen">
+            <div class="mb-8">
+                <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-brand-purple h-2.5 rounded-full" style="width: 66%"></div></div>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Bloco 3: Seus Desafios na Liderança</h2>
+            <p class="text-gray-600 mb-6">Assim podemos identificar os pontos que mais precisam de atenção.</p>
+            <div class="space-y-6">
+                <div>
+                    <label class="font-semibold">4. Hoje, qual é o seu maior desafio para liderar e alcançar resultados?</label>
+                    <div class="space-y-2 mt-2">
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="desafio" value="Delegar sem perder o controle" required class="sr-only">Delegar sem perder o controle</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="desafio" value="Engajar e motivar a equipe" class="sr-only">Engajar e motivar a equipe</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="desafio" value="Resolver conflitos" class="sr-only">Resolver conflitos</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="desafio" value="Organizar e priorizar tarefas e projetos" class="sr-only">Organizar e priorizar tarefas</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="desafio" value="Outro" class="sr-only">Outro</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="font-semibold">5. Qual frase mais parece com seu momento atual?</label>
+                    <div class="space-y-2 mt-2">
+                         <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="momento_atual" value="Quero ter mais resultados sem me sobrecarregar" required class="sr-only">“Quero ter mais resultados sem me sobrecarregar.”</label>
+                         <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="momento_atual" value="Preciso organizar minha liderança para ganhar tempo e performance" class="sr-only">“Preciso organizar minha liderança para ganhar tempo.”</label>
+                         <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="momento_atual" value="Minha equipe entrega, mas abaixo do potencial" class="sr-only">“Minha equipe entrega, mas abaixo do potencial.”</label>
+                         <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="momento_atual" value="Sei que posso mais, só não sei por onde começar" class="sr-only">“Sei que posso mais, só não sei por onde começar.”</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-between items-center">
+                <button data-target="bloco2" class="back-btn text-gray-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition">Voltar</button>
+                <button data-target="reward" class="next-btn bg-brand-purple text-white font-bold py-3 px-8 rounded-lg hover:bg-brand-purple-dark transition-transform transform hover:scale-105">Próximo</button>
+            </div>
+            <p class="question-error-message text-red-500 text-sm mt-2 text-right hidden">Por favor, responda a todas as perguntas.</p>
+        </section>
+
+        <!-- Bloco 4 Screen -->
+        <section id="bloco4-screen" class="p-8 md:p-12 screen hidden-screen">
+            <div class="mb-8">
+                <div class="w-full bg-gray-200 rounded-full h-2.5"><div class="bg-brand-purple h-2.5 rounded-full" style="width: 100%"></div></div>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Bloco 4: Pronta para o Próximo Passo?</h2>
+            <p class="text-gray-600 mb-6">Queremos entender até onde você quer chegar para te mostrar o caminho.</p>
+            <div class="space-y-6">
+                <div>
+                    <label class="font-semibold">6. Hoje, você está disposta a investir para alcançar a liderança que deseja e conquistar resultados acima da média?</label>
+                    <div class="space-y-2 mt-2">
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="disposicao_investir" value="Não estou disposta a investir" required class="sr-only">Não estou disposta a investir.</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="disposicao_investir" value="Sim, estou disposta a investir" class="sr-only">Sim, estou disposta a investir.</label>
+                        <label class="radio-label flex items-center border border-gray-300 p-3 rounded-lg cursor-pointer transition"><input type="radio" name="disposicao_investir" value="Sim, estou disposta a investir, mas preciso ver valores" class="sr-only">Sim, mas preciso ver valores.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-between items-center">
+                <button data-target="reward" class="back-btn text-gray-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition">Voltar</button>
+                <button id="finish-btn" class="bg-brand-gold text-white font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-transform transform hover:scale-105 flex items-center justify-center">
+                    <span class="mr-2">Ver meu Diagnóstico!</span>
+                    <div id="lock-container" class="relative w-5 h-5">
+                        <svg id="lock-closed" class="absolute w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" /></svg>
+                        <svg id="lock-open" class="absolute w-5 h-5 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a5 5 0 00-5 5v1h10V7a5 5 0 00-5-5zM5.5 8a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-6a.5.5 0 00-.5-.5H13V7a3 3 0 10-6 0v1H5.5z" /></svg>
+                    </div>
+                </button>
+            </div>
+            <p class="question-error-message text-red-500 text-sm mt-2 text-right hidden">Por favor, responda a todas as perguntas.</p>
+        </section>
+
+        <!-- Mid-Questionnaire Reward Screen -->
+        <section id="reward-screen" class="p-8 md:p-12 text-center screen hidden-screen">
+            <h2 class="text-2xl font-bold text-brand-gold mb-2">Recompensa Desbloqueada!</h2>
+            <p class="text-gray-600 mb-6">Você está na metade do caminho. Aqui está uma ferramenta especial para te ajudar!</p>
+            <div class="bg-white border p-6 rounded-lg shadow-lg text-center fade-in">
+                 <h3 class="text-xl font-bold text-gray-800 mb-3">Ferramenta de Priorização</h3>
+                 <p class="text-gray-600 mb-6">Use esta matriz para organizar suas tarefas e focar no que realmente importa.</p>
+                 <a href="https://miro.com/app/board/uXjVN_42R_Q=/?share_link_id=382759392333" target="_blank" class="w-full inline-block bg-brand-gold text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-transform transform hover:scale-105">
+                    Acessar Ferramenta Agora!
+                </a>
+            </div>
+            <button id="continue-to-last-step-btn" class="w-full mt-8 bg-brand-purple text-white font-bold py-3 px-6 rounded-lg hover:bg-brand-purple-dark transition-transform transform hover:scale-105">
+                Continuar para o Último Bloco
+            </button>
+        </section>
+
+        <!-- Loading Screen -->
+        <section id="loading-screen" class="p-8 md:p-12 text-center screen hidden-screen">
+             <div class="flex justify-center items-center mb-6">
+                <svg class="animate-spin h-10 w-10 text-brand-purple" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">Analisando suas respostas...</h2>
+            <p class="text-gray-600 mt-2">Criando seu diagnóstico exclusivo com IA.</p>
+        </section>
+
+        <!-- Bloco 5 - Result Screen -->
+        <section id="result-screen" class="p-8 md:p-12 screen hidden-screen">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl md:text-4xl font-bold text-brand-purple mb-2">Agora é com a gente!</h1>
+                <p class="text-gray-600">Parabéns por concluir esta etapa!</p>
+            </div>
+
+            <div class="bg-brand-purple-light border-t-4 border-brand-purple p-6 rounded-lg shadow-md mb-8 fade-in">
+                <h3 class="text-xl font-bold text-brand-purple-dark mb-3">Dica Prévia do seu DNA da Liderança</h3>
+                <div id="gemini-tip" class="text-gray-700 space-y-3">
+                    <p>Carregando sua dica personalizada...</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 p-6 bg-gray-100 rounded-lg fade-in" style="animation-delay: 0.5s;">
+                <p class="text-gray-700">Vamos analisar cada resposta para criar um diagnóstico exclusivo sobre o seu perfil, seus pontos fortes e as oportunidades que podem te levar a entregar <strong>5X mais resultados</strong>.</p>
+                <p class="text-gray-700 mt-4">Em breve, vamos entrar em contato para te apresentar essa análise e indicar o próximo passo mais inteligente para o seu momento.</p>
+                <p class="text-gray-700 mt-6">Enquanto isso, aproveite para seguir <a href="https://www.instagram.com/gralu.liderancafeminina/" target="_blank" class="font-bold text-brand-purple hover:underline">@gralu.liderancafeminina</a> e já começar a receber, todos os dias, dicas, ferramentas e reflexões que podem acelerar a sua liderança a partir de agora.</p>
+                <p class="font-semibold text-gray-800 mt-6">Até breve!<br>Gralu.</p>
+            </div>
+        </section>
+
+    </main>
+    
+    <script type="module">
+        // Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+
+        // IMPORTANT: Replace with your actual Firebase configuration and enable Google Sign-In in the Firebase console.
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEcFhjRrRCaSFzdvum0mw01y2BnqqrLQw",
+            authDomain: "questionario-lideranca.firebaseapp.com",
+            projectId: "questionario-lideranca",
+            storageBucket: "questionario-lideranca.firebasestorage.app",
+            messagingSenderId: "271482749776",
+            appId: "1:271482749776:web:221684997c25bdd122e255",
+            measurementId: "G-DT5E79MPH7"
+        };
+
+        
+        let db, auth;
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            console.log("Firebase initialized successfully.");
+        } catch (e) {
+            console.error("Firebase initialization failed. Please add your Firebase config.", e);
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const screens = {
+                welcome: document.getElementById('welcome-screen'),
+                info: document.getElementById('info-screen'),
+                bloco2: document.getElementById('bloco2-screen'),
+                bloco3: document.getElementById('bloco3-screen'),
+                bloco4: document.getElementById('bloco4-screen'),
+                reward: document.getElementById('reward-screen'),
+                loading: document.getElementById('loading-screen'),
+                result: document.getElementById('result-screen'),
+            };
+
+            const googleLoginBtn = document.getElementById('google-login-btn');
+            const goToInfoBtn = document.getElementById('go-to-info-btn');
+            const startQuestionnaireBtn = document.getElementById('start-questionnaire-btn');
+            const continueToLastStepBtn = document.getElementById('continue-to-last-step-btn');
+            const finishBtn = document.getElementById('finish-btn');
+            
+            const infoForm = document.getElementById('info-form');
+            const infoErrorMessage = document.getElementById('info-error-message');
+            const geminiTipContainer = document.getElementById('gemini-tip');
+            const lockContainer = document.getElementById('lock-container');
+            const lockClosed = document.getElementById('lock-closed');
+            const lockOpen = document.getElementById('lock-open');
+            const whatsappInput = document.getElementById('whatsapp');
+
+            const userAnswers = {};
+
+            const showScreen = (screenId) => {
+                if (!screens[screenId]) {
+                    console.error(`Screen with id "${screenId}" not found.`);
+                    return;
+                }
+                Object.values(screens).forEach(s => {
+                    s.classList.remove('visible-screen');
+                    s.classList.add('hidden-screen');
+                });
+                screens[screenId].classList.remove('hidden-screen');
+                screens[screenId].classList.add('visible-screen');
+            };
+            
+            const validateScreen = (screenElement) => {
+                const inputs = screenElement.querySelectorAll('input[required]');
+                let allValid = true;
+                
+                for (const input of inputs) {
+                    if (input.type === 'radio') {
+                         const radioGroup = screenElement.querySelectorAll(`input[name="${input.name}"]`);
+                         if (![...radioGroup].some(r => r.checked)) {
+                             allValid = false;
+                             break;
+                         }
+                    } else if (!input.value || input.value.trim() === '') {
+                        allValid = false;
+                        break;
+                    }
+                }
+
+                const errorMsg = screenElement.querySelector('.question-error-message, #info-error-message');
+                if (errorMsg) {
+                    errorMsg.classList.toggle('hidden', allValid);
+                }
+                
+                return allValid;
+            };
+            
+            const collectAnswers = (formElement) => {
+                const inputs = formElement.querySelectorAll('input:checked, input[type="text"], input[type="email"], input[type="tel"]');
+                inputs.forEach(input => {
+                    if (input.value) userAnswers[input.name] = input.value;
+                });
+            };
+
+            whatsappInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+                value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+                e.target.value = value;
+            });
+            
+            googleLoginBtn.addEventListener('click', async () => {
+                if (!auth) {
+                    console.error("Firebase Auth is not initialized.");
+                    infoErrorMessage.textContent = "Erro na configuração. Tente o preenchimento manual.";
+                    infoErrorMessage.classList.remove('hidden');
+                    return;
+                }
+                const provider = new GoogleAuthProvider();
+                try {
+                    const result = await signInWithPopup(auth, provider);
+                    const user = result.user;
+                    
+                    document.getElementById('nome').value = user.displayName || '';
+                    document.getElementById('email').value = user.email || '';
+                    
+                    googleLoginBtn.innerHTML = '<span class="text-emerald-500 font-bold">Login feito com sucesso!</span>';
+                    googleLoginBtn.disabled = true;
+
+                    document.getElementById('whatsapp').focus();
+
+                } catch (error) {
+                    console.error("Google login failed:", error);
+                    infoErrorMessage.textContent = "Falha no login com Google. Tente preencher manualmente.";
+                    infoErrorMessage.classList.remove('hidden');
+                }
+            });
+
+            goToInfoBtn.addEventListener('click', () => showScreen('info'));
+
+            startQuestionnaireBtn.addEventListener('click', () => {
+                if (validateScreen(screens.info)) {
+                    collectAnswers(infoForm);
+                    showScreen('bloco2');
+                }
+            });
+
+            document.querySelectorAll('.next-btn').forEach(btn => {
+                const target = btn.dataset.target;
+                const currentScreen = btn.closest('.screen');
+                btn.addEventListener('click', () => {
+                    if (validateScreen(currentScreen)) {
+                        collectAnswers(currentScreen);
+                        showScreen(target);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.back-btn').forEach(btn => {
+                const target = btn.dataset.target;
+                btn.addEventListener('click', () => showScreen(target));
+            });
+            
+            continueToLastStepBtn.addEventListener('click', () => showScreen('bloco4'));
+
+            finishBtn.addEventListener('click', () => {
+                 if (validateScreen(screens.bloco4)) {
+                    collectAnswers(screens.bloco4);
+                    finishBtn.disabled = true;
+                    lockContainer.classList.add('shake');
+                    setTimeout(() => {
+                        lockClosed.classList.add('hidden');
+                        lockOpen.classList.remove('hidden');
+                    }, 600);
+                    setTimeout(() => {
+                        showLoadingAndFetchTip();
+                    }, 1000);
+                }
+            });
+
+            const saveDataToFirestore = async () => {
+                if (!db) {
+                    console.error("Firestore is not initialized. Skipping save.");
+                    return;
+                }
+                try {
+                    await addDoc(collection(db, "respostasLideranca"), {
+                        ...userAnswers,
+                        timestamp: serverTimestamp()
+                    });
+                    console.log("Data saved to Firestore successfully!");
+                } catch (error) {
+                    console.error("Error saving data to Firestore: ", error);
+                }
+            };
+
+            const showLoadingAndFetchTip = async () => {
+                await saveDataToFirestore();
+                showScreen('loading');
+
+                const prompt = `
+                    Aja como uma coach de liderança experiente e empática. Uma líder chamada ${userAnswers.nome} respondeu a um questionário. Com base nas respostas dela, crie um "Indício de Perfil de Liderança" e uma dica curta (2-3 parágrafos). O perfil pode ser algo como "Líder Executora", "Líder Visionária", "Líder Humanizada", "Líder em Desenvolvimento", etc. A dica deve ser prática e encorajadora. Use negrito para o nome do perfil.
+
+                    Respostas:
+                    - Nome: ${userAnswers.nome}
+                    - Situação Profissional: ${userAnswers.situacao_profissional || 'Não informado'}
+                    - Maior Desafio: ${userAnswers.desafio || 'Não informado'}
+                    - Momento Atual: ${userAnswers.momento_atual || 'Não informado'}
+                    - Disposição para Investir: ${userAnswers.disposicao_investir || 'Não informado'}
+
+                    Gere o indício de perfil e a dica.
+                `;
+                
+                try {
+                    const tip = await generateTextWithGemini(prompt);
+                    geminiTipContainer.innerHTML = tip.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                } catch (error) {
+                    console.error("Error fetching Gemini tip:", error);
+                    geminiTipContainer.innerHTML = "<p>Ocorreu um erro ao gerar sua dica. Mas não se preocupe, nossa equipe fará a análise completa para a sua sessão.</p>";
+                } finally {
+                    showScreen('result');
+                }
+            };
+
+            const generateTextWithGemini = async (prompt) => {
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+                let attempts = 0;
+                while (attempts < 3) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (response.ok) {
+                            const result = await response.json();
+                            if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                                return result.candidates[0].content.parts[0].text;
+                            } else { throw new Error("Invalid API response."); }
+                        } else { throw new Error(`API request failed: ${response.status}`); }
+                    } catch (error) {
+                        attempts++;
+                        if (attempts >= 3) throw error;
+                        await new Promise(res => setTimeout(res, Math.pow(2, attempts) * 100));
+                    }
+                }
+                throw new Error("API communication failed after multiple retries.");
+            };
+        });
+    </script>
+</body>
+</html>
