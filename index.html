@@ -69,9 +69,9 @@
 
         <!-- Welcome Screen -->
         <section id="welcome-screen" class="p-8 md:p-12 screen visible-screen">
-            <img src="logoGL.png" alt="Logo GL Leadership Academy" class="w-36 h-30 mx-auto mb-4">
+            <img src="logoGL.png" alt="Logo GL Leadership Academy" class="w-40 h-auto mx-auto mb-4">
             <h1 class="text-3xl md:text-4xl font-bold text-brand-purple mb-4 text-center">Seu DNA da Liderança</h1>
-            <p class="text-gray-600 mb-6 text-center">Este não é um simples questionário, mas o primeiro passo para você construir a liderança que deseja e desbloquear recompensas exclusivas!</p>
+            <p class="text-gray-600 mb-6 text-center">Este não é um simples questionário, mas o primeiro passo para você construir a liderança que deseja e desbloquear recompensas exclusivas.</p>
             <div class="bg-brand-purple-light border-l-4 border-brand-purple p-4 rounded-lg text-left mb-8">
                 <h3 class="font-semibold text-brand-purple-dark">Como funciona:</h3>
                 <p class="text-gray-700 mt-2">Reserve 2 minutos! Cada resposta vai nos ajudar a criar um diagnóstico personalizado para que possamos entender seu momento como líder e indicar o próximo passo mais certeiro.</p>
@@ -85,7 +85,7 @@
             </button>
         </section>
 
-     <!-- Bloco 1 - Info Collection Screen -->
+        <!-- Bloco 1 - Info Collection Screen -->
         <section id="info-screen" class="p-8 md:p-12 screen hidden-screen">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Bloco 1: Vamos começar!</h2>
             <p class="text-gray-600 text-sm mb-6 text-center">Queremos conhecer você para entender seu momento como líder e personalizar seu diagnóstico.</p>
@@ -117,7 +117,6 @@
                 </button>
             </div>
         </section>
-
 
         <!-- Bloco 2 Screen -->
         <section id="bloco2-screen" class="p-8 md:p-12 screen hidden-screen">
@@ -286,12 +285,11 @@
             apiKey: "AIzaSyAEcFhjRrRCaSFzdvum0mw01y2BnqqrLQw",
             authDomain: "questionario-lideranca.firebaseapp.com",
             projectId: "questionario-lideranca",
-            storageBucket: "questionario-lideranca.firebasestorage.app",
+            storageBucket: "questionario-lideranca.appspot.com",
             messagingSenderId: "271482749776",
             appId: "1:271482749776:web:221684997c25bdd122e255",
             measurementId: "G-DT5E79MPH7"
         };
-
         
         let db, auth;
         try {
@@ -315,14 +313,12 @@
                 result: document.getElementById('result-screen'),
             };
 
-            const googleLoginBtn = document.getElementById('google-login-btn');
             const goToInfoBtn = document.getElementById('go-to-info-btn');
             const startQuestionnaireBtn = document.getElementById('start-questionnaire-btn');
             const continueToLastStepBtn = document.getElementById('continue-to-last-step-btn');
             const finishBtn = document.getElementById('finish-btn');
             
             const infoForm = document.getElementById('info-form');
-            const infoErrorMessage = document.getElementById('info-error-message');
             const geminiTipContainer = document.getElementById('gemini-tip');
             const lockContainer = document.getElementById('lock-container');
             const lockClosed = document.getElementById('lock-closed');
@@ -381,33 +377,6 @@
                 value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
                 value = value.replace(/(\d)(\d{4})$/, '$1-$2');
                 e.target.value = value;
-            });
-            
-            googleLoginBtn.addEventListener('click', async () => {
-                if (!auth) {
-                    console.error("Firebase Auth is not initialized.");
-                    infoErrorMessage.textContent = "Erro na configuração. Tente o preenchimento manual.";
-                    infoErrorMessage.classList.remove('hidden');
-                    return;
-                }
-                const provider = new GoogleAuthProvider();
-                try {
-                    const result = await signInWithPopup(auth, provider);
-                    const user = result.user;
-                    
-                    document.getElementById('nome').value = user.displayName || '';
-                    document.getElementById('email').value = user.email || '';
-                    
-                    googleLoginBtn.innerHTML = '<span class="text-emerald-500 font-bold">Login feito com sucesso!</span>';
-                    googleLoginBtn.disabled = true;
-
-                    document.getElementById('whatsapp').focus();
-
-                } catch (error) {
-                    console.error("Google login failed:", error);
-                    infoErrorMessage.textContent = "Falha no login com Google. Tente preencher manualmente.";
-                    infoErrorMessage.classList.remove('hidden');
-                }
             });
 
             goToInfoBtn.addEventListener('click', () => showScreen('info'));
@@ -525,15 +494,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
