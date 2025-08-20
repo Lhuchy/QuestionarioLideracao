@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seu DNA da Liderança - Questionário Inicial</title>
+    <title>DNA da Liderança - Questionário Inicial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +16,7 @@
                     colors: {
                         'brand-purple': '#4A00E0',
                         'brand-gold': '#C5B358',
+                        'brand-pink': '#FF007F', // Rosa Shock
                         'brand-purple-light': '#F3E8FF',
                         'brand-purple-dark': '#3C00B3',
                     }
@@ -61,6 +62,14 @@
             40%, 60% { transform: translate3d(3px, 0, 0); }
         }
         .shake { animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both; }
+        
+        @keyframes pulse-pink {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 0, 127, 0); }
+        }
+        .pulse-pink {
+            animation: pulse-pink 1s ease-out;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex items-center justify-center min-h-screen p-4">
@@ -189,7 +198,13 @@
             </div>
             <div class="mt-8 flex justify-between items-center">
                 <button data-target="bloco2" class="back-btn text-gray-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition">Voltar</button>
-                <button data-target="reward" class="next-btn bg-brand-purple text-white font-bold py-3 px-8 rounded-lg hover:bg-brand-purple-dark transition-transform transform hover:scale-105">Próximo</button>
+                <button id="unlock-reward-btn" class="bg-brand-purple text-white font-bold py-3 px-8 rounded-lg hover:bg-brand-purple-dark transition-transform transform hover:scale-105 flex items-center justify-center">
+                    <span class="mr-2">Desbloquear Ferramenta</span>
+                    <div class="relative w-5 h-5">
+                        <svg class="lock-closed w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" /></svg>
+                        <svg class="lock-open w-5 h-5 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a5 5 0 00-5 5v1h10V7a5 5 0 00-5-5zM5.5 8a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-6a.5.5 0 00-.5-.5H13V7a3 3 0 10-6 0v1H5.5z" /></svg>
+                    </div>
+                </button>
             </div>
             <p class="question-error-message text-red-500 text-sm mt-2 text-right hidden">Por favor, responda a todas as perguntas.</p>
         </section>
@@ -214,10 +229,10 @@
             <div class="mt-8 flex justify-between items-center">
                 <button data-target="reward" class="back-btn text-gray-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition">Voltar</button>
                 <button id="finish-btn" class="bg-brand-gold text-white font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-transform transform hover:scale-105 flex items-center justify-center">
-                    <span class="mr-2">Ver meu Diagnóstico!</span>
+                    <span class="mr-2">Ver meu diagnóstico prévio!</span>
                     <div id="lock-container" class="relative w-5 h-5">
-                        <svg id="lock-closed" class="absolute w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" /></svg>
-                        <svg id="lock-open" class="absolute w-5 h-5 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a5 5 0 00-5 5v1h10V7a5 5 0 00-5-5zM5.5 8a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-6a.5.5 0 00-.5-.5H13V7a3 3 0 10-6 0v1H5.5z" /></svg>
+                        <svg id="lock-closed-final" class="absolute w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" /></svg>
+                        <svg id="lock-open-final" class="absolute w-5 h-5 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a5 5 0 00-5 5v1h10V7a5 5 0 00-5-5zM5.5 8a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-6a.5.5 0 00-.5-.5H13V7a3 3 0 10-6 0v1H5.5z" /></svg>
                     </div>
                 </button>
             </div>
@@ -226,12 +241,12 @@
 
         <!-- Mid-Questionnaire Reward Screen -->
         <section id="reward-screen" class="p-8 md:p-12 text-center screen hidden-screen">
-            <h2 class="text-2xl font-bold text-brand-gold mb-2">Recompensa Desbloqueada!</h2>
+            <h2 class="text-2xl font-bold text-brand-pink mb-2">Recompensa Desbloqueada!</h2>
             <p class="text-gray-600 mb-6">Você está na metade do caminho. Aqui está uma ferramenta especial para te ajudar!</p>
             <div class="bg-white border p-6 rounded-lg shadow-lg text-center fade-in">
-                 <h3 class="text-xl font-bold text-gray-800 mb-3">Ferramenta de Priorização</h3>
-                 <p class="text-gray-600 mb-6">Use esta matriz para organizar suas tarefas e focar no que realmente importa.</p>
-                 <a href="https://gralufeedback.vercel.app/" target="_blank" class="w-full inline-block bg-brand-gold text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-transform transform hover:scale-105">
+                 <h3 class="text-xl font-bold text-gray-800 mb-3">Feedback em 1 Minuto</h3>
+                 <p class="text-gray-600 mb-6">Um game para ajudar as líderes a darem um feedback rápido com a metodologia adequada a cada situação.</p>
+                 <a href="https://gralufeedback.vercel.app/" target="_blank" class="w-full inline-block bg-brand-pink text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-transform transform hover:scale-105">
                     Acessar Ferramenta Agora!
                 </a>
             </div>
@@ -242,11 +257,13 @@
 
         <!-- Loading Screen -->
         <section id="loading-screen" class="p-8 md:p-12 text-center screen hidden-screen">
-             <div class="flex justify-center items-center mb-6">
-                <svg class="animate-spin h-10 w-10 text-brand-purple" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+             <div class="flex flex-col justify-center items-center">
+                <div class="flex items-center justify-center space-x-4">
+                    <img src="https://i.imgur.com/uTz1Etp.png" alt="Avatar da GraLu" class="w-24 h-24 rounded-full">
+                    <svg class="animate-spin h-10 w-10 text-brand-purple" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mt-4">A GraLu, nossa assistente de IA, está analisando suas respostas...</h2>
             </div>
-            <h2 class="text-2xl font-bold text-gray-800">Analisando suas respostas...</h2>
-            <p class="text-gray-600 mt-2">Criando seu diagnóstico exclusivo com IA.</p>
         </section>
 
         <!-- Bloco 5 - Result Screen -->
@@ -264,44 +281,23 @@
             </div>
             
             <div class="text-center mt-8 p-6 bg-gray-100 rounded-lg fade-in" style="animation-delay: 0.5s;">
-                <p class="text-gray-700">Vamos analisar cada resposta para criar um diagnóstico exclusivo sobre o seu perfil, seus pontos fortes e as oportunidades que podem te levar a entregar <strong>5X mais resultados</strong>.</p>
-                <p class="text-gray-700 mt-4">Em breve, vamos entrar em contato para te apresentar essa análise e indicar o próximo passo mais inteligente para o seu momento.</p>
-                <p class="text-gray-700 mt-6">Enquanto isso, aproveite para seguir <a href="https://www.instagram.com/gralu.liderancafeminina/" target="_blank" class="font-bold text-brand-purple hover:underline">@gralu.liderancafeminina</a> e já começar a receber, todos os dias, dicas, ferramentas e reflexões que podem acelerar a sua liderança a partir de agora.</p>
-                <p class="font-semibold text-gray-800 mt-6">Até breve!<br>Gralu.</p>
+                <h3 class="text-xl font-semibold text-gray-800">Quer desbloquear a análise completa do seu perfil?</h3>
+                <p class="text-gray-700 mt-2">Em breve, vamos entrar em contato para te indicar o próximo passo para criar um diagnóstico exclusivo sobre o seu perfil, seus pontos fortes e as oportunidades que podem te levar a entregar <strong>5X mais resultados</strong>.</p>
+                <p class="text-gray-700 mt-4">Enquanto isso, aproveite para seguir <a href="https://www.instagram.com/gralu.liderancafeminina/" target="_blank" class="font-bold text-brand-purple hover:underline">@gralu.liderancafeminina</a> e já começar a receber, todos os dias, dicas, ferramentas e reflexões que podem acelerar a sua liderança a partir de agora.</p>
+                <div class="flex items-center justify-center mt-6">
+                     <img src="https://i.imgur.com/uTz1Etp.png" alt="Avatar da GraLu" class="w-12 h-12 rounded-full mr-2">
+                    <p class="font-semibold text-gray-800 text-left">Até breve!<br>Gralu.</p>
+                </div>
             </div>
         </section>
 
     </main>
     
-    <script type="module">
-        // Firebase Imports
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-
-
-        // IMPORTANT: Replace with your actual Firebase configuration and enable Google Sign-In in the Firebase console.
-        const firebaseConfig = {
-            apiKey: "AIzaSyAEcFhjRrRCaSFzdvum0mw01y2BnqqrLQw",
-            authDomain: "questionario-lideranca.firebaseapp.com",
-            projectId: "questionario-lideranca",
-            storageBucket: "questionario-lideranca.appspot.com",
-            messagingSenderId: "271482749776",
-            appId: "1:271482749776:web:221684997c25bdd122e255",
-            measurementId: "G-DT5E79MPH7"
-        };
-        
-        let db, auth;
-        try {
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-            console.log("Firebase initialized successfully.");
-        } catch (e) {
-            console.error("Firebase initialization failed. Please add your Firebase config.", e);
-        }
-        
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // URL for the Google Apps Script - REPLACE WITH YOUR URL
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQS4F2R5FZmeXbT3_4mqgtvJf-2KKmY2AYihFz_MqKnjY1J1YkeFZgtoZ5ryQlv10yVg/exec";
+
             const screens = {
                 welcome: document.getElementById('welcome-screen'),
                 info: document.getElementById('info-screen'),
@@ -321,8 +317,8 @@
             const infoForm = document.getElementById('info-form');
             const geminiTipContainer = document.getElementById('gemini-tip');
             const lockContainer = document.getElementById('lock-container');
-            const lockClosed = document.getElementById('lock-closed');
-            const lockOpen = document.getElementById('lock-open');
+            const lockClosedFinal = document.getElementById('lock-closed-final');
+            const lockOpenFinal = document.getElementById('lock-open-final');
             const whatsappInput = document.getElementById('whatsapp');
 
             const userAnswers = {};
@@ -384,6 +380,7 @@
             startQuestionnaireBtn.addEventListener('click', () => {
                 if (validateScreen(screens.info)) {
                     collectAnswers(infoForm);
+                    sendDataToGoogleSheet(); // Save initial data
                     showScreen('bloco2');
                 }
             });
@@ -394,6 +391,7 @@
                 btn.addEventListener('click', () => {
                     if (validateScreen(currentScreen)) {
                         collectAnswers(currentScreen);
+                        sendDataToGoogleSheet(); // Save data for the current block
                         showScreen(target);
                     }
                 });
@@ -404,6 +402,33 @@
                 btn.addEventListener('click', () => showScreen(target));
             });
             
+            const unlockRewardBtn = document.getElementById('unlock-reward-btn');
+            unlockRewardBtn.addEventListener('click', () => {
+                const currentScreen = unlockRewardBtn.closest('.screen');
+                if (validateScreen(currentScreen)) {
+                    collectAnswers(currentScreen);
+                    sendDataToGoogleSheet();
+                    
+                    unlockRewardBtn.disabled = true;
+                    const lockIcon = unlockRewardBtn.querySelector('.lock-closed');
+                    lockIcon.classList.add('shake');
+                    unlockRewardBtn.classList.add('pulse-pink', 'bg-brand-pink');
+
+                    setTimeout(() => {
+                        unlockRewardBtn.querySelector('.lock-closed').classList.add('hidden');
+                        unlockRewardBtn.querySelector('.lock-open').classList.remove('hidden');
+                    }, 600);
+
+                    setTimeout(() => {
+                        showScreen('reward');
+                        unlockRewardBtn.disabled = false;
+                        unlockRewardBtn.classList.remove('pulse-pink', 'bg-brand-pink');
+                        unlockRewardBtn.querySelector('.lock-closed').classList.remove('hidden');
+                        unlockRewardBtn.querySelector('.lock-open').classList.add('hidden');
+                    }, 1200);
+                }
+            });
+
             continueToLastStepBtn.addEventListener('click', () => showScreen('bloco4'));
 
             finishBtn.addEventListener('click', () => {
@@ -412,8 +437,8 @@
                     finishBtn.disabled = true;
                     lockContainer.classList.add('shake');
                     setTimeout(() => {
-                        lockClosed.classList.add('hidden');
-                        lockOpen.classList.remove('hidden');
+                        lockClosedFinal.classList.add('hidden');
+                        lockOpenFinal.classList.remove('hidden');
                     }, 600);
                     setTimeout(() => {
                         showLoadingAndFetchTip();
@@ -421,24 +446,34 @@
                 }
             });
 
-            const saveDataToFirestore = async () => {
-                if (!db) {
-                    console.error("Firestore is not initialized. Skipping save.");
+            const sendDataToGoogleSheet = async () => {
+                if (SCRIPT_URL === "URL_DA_SUA_API_AQUI") {
+                    console.error("Please replace 'URL_DA_SUA_API_AQUI' with your Google Apps Script URL.");
                     return;
                 }
+                
+                const dataToSave = {
+                    timestamp: new Date().toLocaleString("pt-BR"),
+                    ...userAnswers
+                };
+
                 try {
-                    await addDoc(collection(db, "respostasLideranca"), {
-                        ...userAnswers,
-                        timestamp: serverTimestamp()
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', // Important for Google Apps Script
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(dataToSave),
                     });
-                    console.log("Data saved to Firestore successfully!");
+                    console.log("Data sent to Google Sheet successfully!");
                 } catch (error) {
-                    console.error("Error saving data to Firestore: ", error);
+                    console.error("Error sending data to Google Sheet: ", error);
                 }
             };
 
             const showLoadingAndFetchTip = async () => {
-                await saveDataToFirestore();
+                await sendDataToGoogleSheet(); // Send final, complete data
                 showScreen('loading');
 
                 const prompt = `
